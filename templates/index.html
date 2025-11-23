@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Behavior Analytics Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="logo">🛍️ Shopping Analytics</h1>
+                <nav class="nav">
+                    <a href="#overview" class="nav-link active">Overview</a>
+                    <a href="#analytics" class="nav-link">Analytics</a>
+                    <a href="#predictor" class="nav-link">Predictor</a>
+                    <a href="#insights" class="nav-link">Insights</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Overview Section -->
+            <section id="overview" class="section">
+                <h2 class="section-title">📊 Dashboard Overview</h2>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">👥</div>
+                        <div class="stat-content">
+                            <h3 class="stat-value" id="total-customers">-</h3>
+                            <p class="stat-label">Total Customers</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">💰</div>
+                        <div class="stat-content">
+                            <h3 class="stat-value" id="total-revenue">-</h3>
+                            <p class="stat-label">Total Revenue</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">📈</div>
+                        <div class="stat-content">
+                            <h3 class="stat-value" id="avg-purchase">-</h3>
+                            <p class="stat-label">Avg Purchase</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">⭐</div>
+                        <div class="stat-content">
+                            <h3 class="stat-value" id="avg-rating">-</h3>
+                            <p class="stat-label">Avg Rating</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">🎯</div>
+                        <div class="stat-content">
+                            <h3 class="stat-value" id="subscription-rate">-</h3>
+                            <p class="stat-label">Subscription Rate</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">🎁</div>
+                        <div class="stat-content">
+                            <h3 class="stat-value" id="discount-usage">-</h3>
+                            <p class="stat-label">Discount Usage</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Analytics Section -->
+            <section id="analytics" class="section">
+                <h2 class="section-title">📈 Analytics & Insights</h2>
+                
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <h3 class="chart-title">Purchase by Category</h3>
+                        <canvas id="categoryChart"></canvas>
+                    </div>
+                    
+                    <div class="chart-card">
+                        <h3 class="chart-title">Seasonal Trends</h3>
+                        <canvas id="seasonalChart"></canvas>
+                    </div>
+                    
+                    <div class="chart-card">
+                        <h3 class="chart-title">Age Distribution</h3>
+                        <canvas id="ageChart"></canvas>
+                    </div>
+                    
+                    <div class="chart-card">
+                        <h3 class="chart-title">Payment Methods</h3>
+                        <canvas id="paymentChart"></canvas>
+                    </div>
+                    
+                    <div class="chart-card chart-card-wide">
+                        <h3 class="chart-title">Top 10 Selling Items</h3>
+                        <canvas id="topItemsChart"></canvas>
+                    </div>
+                    
+                    <div class="chart-card chart-card-wide">
+                        <h3 class="chart-title">Customer Segments</h3>
+                        <canvas id="clusterChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Predictor Section -->
+            <section id="predictor" class="section">
+                <h2 class="section-title">🎯 Purchase Predictor</h2>
+                
+                <div class="predictor-container">
+                    <div class="predictor-form">
+                        <h3 class="form-title">Customer Information</h3>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="age">Age</label>
+                                <input type="number" id="age" value="30" min="18" max="70">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="gender">Gender</label>
+                                <select id="gender">
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="category">Category</label>
+                                <select id="category">
+                                    <option value="Clothing">Clothing</option>
+                                    <option value="Footwear">Footwear</option>
+                                    <option value="Accessories">Accessories</option>
+                                    <option value="Outerwear">Outerwear</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="season">Season</label>
+                                <select id="season">
+                                    <option value="Spring">Spring</option>
+                                    <option value="Summer">Summer</option>
+                                    <option value="Fall">Fall</option>
+                                    <option value="Winter">Winter</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="previous-purchases">Previous Purchases</label>
+                                <input type="number" id="previous-purchases" value="10" min="0" max="50">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="review-rating">Review Rating</label>
+                                <input type="number" id="review-rating" value="3.5" min="2.5" max="5" step="0.1">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="frequency">Purchase Frequency</label>
+                                <select id="frequency">
+                                    <option value="Weekly">Weekly</option>
+                                    <option value="Fortnightly">Fortnightly</option>
+                                    <option value="Monthly">Monthly</option>
+                                    <option value="Quarterly">Quarterly</option>
+                                    <option value="Every 3 Months">Every 3 Months</option>
+                                    <option value="Annually">Annually</option>
+                                    <option value="Bi-Weekly">Bi-Weekly</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="is-subscriber">
+                                    <span>Is Subscriber</span>
+                                </label>
+                            </div>
+                            
+                            <div class="form-group checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="discount-used">
+                                    <span>Discount Used</span>
+                                </label>
+                            </div>
+                            
+                            <div class="form-group checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="promo-used">
+                                    <span>Promo Code Used</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <button class="predict-btn" onclick="makePrediction()">Predict Purchase Amount</button>
+                    </div>
+                    
+                    <div class="prediction-results">
+                        <h3 class="form-title">Predictions</h3>
+                        
+                        <div class="prediction-card">
+                            <div class="prediction-icon">💵</div>
+                            <div class="prediction-content">
+                                <p class="prediction-label">Predicted Purchase Amount</p>
+                                <h2 class="prediction-value" id="predicted-amount">$--</h2>
+                            </div>
+                        </div>
+                        
+                        <div class="prediction-card">
+                            <div class="prediction-icon">📊</div>
+                            <div class="prediction-content">
+                                <p class="prediction-label">Subscription Probability</p>
+                                <h2 class="prediction-value" id="subscription-prob">--%</h2>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="subscription-progress"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Insights Section -->
+            <section id="insights" class="section">
+                <h2 class="section-title">💡 Key Insights</h2>
+                
+                <div class="insights-grid">
+                    <div class="insight-card">
+                        <h3>👥 Customer Demographics</h3>
+                        <ul id="demographics-list">
+                            <li>Loading...</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="insight-card">
+                        <h3>💰 Revenue Insights</h3>
+                        <ul id="revenue-insights">
+                            <li>Loading...</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="insight-card">
+                        <h3>🎯 Marketing Opportunities</h3>
+                        <ul id="marketing-insights">
+                            <li>Loading...</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="insight-card">
+                        <h3>⭐ Customer Satisfaction</h3>
+                        <ul id="satisfaction-insights">
+                            <li>Loading...</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="table-container">
+                    <h3 class="table-title">Recent Transactions</h3>
+                    <div class="table-wrapper">
+                        <table id="transactions-table">
+                            <thead>
+                                <tr>
+                                    <th>Customer ID</th>
+                                    <th>Age</th>
+                                    <th>Gender</th>
+                                    <th>Item</th>
+                                    <th>Category</th>
+                                    <th>Amount</th>
+                                    <th>Rating</th>
+                                    <th>Subscriber</th>
+                                </tr>
+                            </thead>
+                            <tbody id="transactions-body">
+                                <tr><td colspan="8">Loading...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Shopping Behavior Analytics. Powered by Machine Learning.</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
